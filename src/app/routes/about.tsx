@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { useState } from "react";
+import { NATIVE_API_READDIR } from "@/native/constants";
 
 export const Route = createFileRoute("/about")({
   component: RouteComponent,
@@ -16,8 +17,12 @@ function RouteComponent() {
       <p>Input folder to read:</p>
       <Input value={path} onChange={(e) => setPath(e.target.value)} />
       <Button
-        onClick={() => {
-          setFilePaths(fileSystem.readdir(path));
+        onClick={async () => {
+          const data = await nativeAPI.invokeNativeAPI(
+            NATIVE_API_READDIR,
+            path
+          );
+          setFilePaths(data);
         }}
       >
         Read
