@@ -92,3 +92,4 @@ typings/
 out/
 
 .tanstack
+src/app/routeTree.gen.ts
